@@ -31,12 +31,16 @@ SCRAPING_CONFIG = {
     'country': 'et'  # Ethiopia
 }
 
-# File Paths
+# File Paths - Use absolute paths from project root
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).parent.parent.parent.parent  # Go up to project root
+DATA_DIR = PROJECT_ROOT / 'data'
+
 DATA_PATHS = {
-    'raw': 'data/raw',
-    'processed': 'data/processed',
-    'raw_reviews': 'data/raw/reviews_raw.csv',
-    'processed_reviews': 'data/processed/reviews_processed.csv',
-    'sentiment_results': 'data/processed/reviews_with_sentiment.csv',
-    'final_results': 'data/processed/reviews_final.csv'
+    'raw': str(DATA_DIR / 'raw'),
+    'processed': str(DATA_DIR / 'processed'),
+    'raw_reviews': str(DATA_DIR / 'raw' / 'reviews_raw.csv'),
+    'processed_reviews': str(DATA_DIR / 'processed' / 'reviews_processed.csv'),
+    'sentiment_results': str(DATA_DIR / 'processed' / 'reviews_with_sentiment.csv'),
+    'final_results': str(DATA_DIR / 'processed' / 'reviews_final.csv')
 }
