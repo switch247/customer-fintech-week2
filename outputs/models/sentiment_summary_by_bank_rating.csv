@@ -1,0 +1,16 @@
+bank_name,rating,sentiment_score,count
+Amharabank,1,0.07605999999999999,20
+Amharabank,2,-0.15467999999999998,5
+Amharabank,3,0.43635714285714283,7
+Amharabank,4,0.30870000000000003,18
+Amharabank,5,0.4410218045112782,133
+Awash Bank,1,0.04424186046511628,43
+Awash Bank,2,0.12894545454545456,11
+Awash Bank,3,0.28300909090909093,11
+Awash Bank,4,0.332275,36
+Awash Bank,5,0.3959458193979933,299
+Commercial Bank of Ethiopia,1,-0.09338392857142856,56
+Commercial Bank of Ethiopia,2,0.07687692307692308,13
+Commercial Bank of Ethiopia,3,0.13448695652173911,23
+Commercial Bank of Ethiopia,4,0.29626,40
+Commercial Bank of Ethiopia,5,0.352839552238806,268
