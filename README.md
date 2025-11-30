@@ -48,11 +48,11 @@ src/customer_analytics/
    ```
 
 ### Configuration
-Create a `.env` file with:
+Create a `.env` file with (example values):
 ```
 CBE_APP_ID=com.combanketh.mobilebanking
-AWASHPAY_APP_ID=com.sc.awashpay
-AMHARABANK_APP_ID=com.amharabank.Aba_mobile_banking
+BOA_APP_ID=com.bankofabyssinia.app
+DASHEN_APP_ID=com.dashenbank.mobile
 REVIEWS_PER_BANK=400
 MAX_RETRIES=3
 ```
