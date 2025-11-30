@@ -118,5 +118,35 @@ if loader.connect():
 pytest tests/
 ```
 
+## Task 2: Sentiment & Thematic Analysis
+
+Run the end-to-end Task 2 pipeline (example runner provided):
+
+```powershell
+# from repo root (Windows PowerShell)
+python .\scripts\customer_feedback_pipeline.py --data data/processed/reviews_processed.csv --out outputs/models --method vader
+```
+
+- `--method` supports `vader` (default), `textblob`, or `transformer` (requires `transformers` installed).
+- Outputs are written to `outputs/models/`:
+    - `reviews_with_sentiment_and_themes.csv` — per-review sentiment and assigned theme
+    - `themes_by_bank.json` — extracted topics per bank
+    - `task2_metrics.json` — basic coverage metrics
+
+Notes:
+- If `data/processed/reviews_processed.csv` is not present, the script will generate a sample dataset for demonstration.
+- For best-quality sentiment, install `transformers` and use `--method transformer`. Transformer inference can be slower and may require internet to download model weights on first run.
+
+
 ## Contributing
 Please follow the coding standards and submit pull requests for review.
+
+## Documentation
+
+Short, focused docs were added under the `docs/` folder to help you run the project and notebooks:
+
+- `docs/README.md` — Quick start and where outputs are written; CLI and test examples.
+- `docs/dependencies.md` — Dependency installation instructions and NLTK setup (VADER), plus optional packages (transformers, scikit-learn).
+- `docs/notebooks.md` — Notebook execution order and notes: run Task 1 first (preprocessing), then Task 2. Explains that Task 2 notebook uses the package pipeline helper and writes outputs to `outputs/models` in the project root.
+
+See the `docs/` folder for step-by-step instructions and troubleshooting tips.

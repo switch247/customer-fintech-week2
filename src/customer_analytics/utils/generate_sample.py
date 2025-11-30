@@ -63,3 +63,47 @@ def generate_sample_df(name: str = "Sample", n_days: int = 30, freq: str = "D", 
     }
     df = pd.DataFrame(data)
     return df
+
+
+def generate_sample_reviews(n: int = 100, seed: int | None = None) -> pd.DataFrame:
+    """Generate a small synthetic reviews DataFrame for testing the pipelines.
+
+    Columns: review_id, review_text, rating, date, bank_name
+    """
+    if seed is not None:
+        np.random.seed(seed)
+
+    banks = [
+        'Commercial Bank of Ethiopia',
+        'Bank of Abyssinia',
+        'Dashen Bank'
+    ]
+
+    sample_texts = [
+        'App crashes when sending money',
+        'Login failed multiple times',
+        'Very fast transfers and easy to use',
+        'Slow UI and occasional timeouts',
+        'Customer support was helpful',
+        'Payment failed but refunded later',
+        'Great app, love the design',
+        'Bug when uploading ID documents',
+        'Fingerprint login not working',
+        'Cannot link bank account'
+    ]
+
+    rows = []
+    for i in range(n):
+        review = np.random.choice(sample_texts)
+        rating = int(np.random.choice([1,2,3,4,5], p=[0.15,0.15,0.2,0.25,0.25]))
+        bank = np.random.choice(banks)
+        date = pd.Timestamp(datetime.now()) - pd.to_timedelta(np.random.randint(0, 365), unit='d')
+        rows.append({
+            'review_id': str(uuid.uuid4()),
+            'review_text': review,
+            'rating': rating,
+            'date': date,
+            'bank_name': bank
+        })
+
+    return pd.DataFrame(rows)
