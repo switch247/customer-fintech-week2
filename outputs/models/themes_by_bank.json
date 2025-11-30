@@ -1,66 +1,34 @@
 {
-  "Amharabank": [
+  "Bank of Abyssinia": [
     [
       "good",
-      "app",
-      "job",
-      "bank",
+      "application",
+      "service",
       "work",
-      "works",
-      "time",
-      "thank"
+      "job",
+      "really",
+      "app",
+      "used"
     ],
     [
-      "best",
       "app",
+      "worst",
+      "bank",
       "banking",
       "mobile",
-      "bank",
-      "easy",
-      "fast",
+      "nice",
+      "boa",
       "use"
     ],
     [
-      "nice",
-      "app",
-      "interesting",
-      "fast",
-      "work",
-      "job",
-      "excellent",
-      "simple"
-    ]
-  ],
-  "Awash Bank": [
-    [
-      "good",
-      "service",
-      "application",
-      "app",
-      "easy",
-      "bank",
-      "transfer",
-      "work"
-    ],
-    [
-      "app",
-      "nice",
-      "excellent",
-      "amazing",
-      "fast",
-      "use",
-      "thanks",
-      "great"
-    ],
-    [
       "best",
       "bank",
-      "banking",
-      "mobile",
-      "application",
       "ethiopia",
-      "like",
-      "apps"
+      "apps",
+      "improved",
+      "business",
+      "app",
+      "minutes"
     ]
   ],
   "Commercial Bank of Ethiopia": [
@@ -93,6 +61,38 @@
       "add",
       "history",
       "days"
+    ]
+  ],
+  "Dashen Bank": [
+    [
+      "good",
+      "app",
+      "service",
+      "fast",
+      "application",
+      "experience",
+      "100",
+      "job"
+    ],
+    [
+      "app",
+      "best",
+      "bank",
+      "dashen",
+      "super",
+      "banking",
+      "great",
+      "amazing"
+    ],
+    [
+      "nice",
+      "app",
+      "application",
+      "transaction",
+      "seen",
+      "ok",
+      "\u1260\u1323\u121d",
+      "\u1290\u12cd"
     ]
   ]
 }

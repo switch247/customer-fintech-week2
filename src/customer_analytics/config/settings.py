@@ -8,19 +8,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Google Play Store App IDs
-APP_IDS = {
-# env
-    'CBE': os.getenv('CBE_APP_ID', 'com.combanketh.mobilebanking'),
-    'Awash': os.getenv('AWASHPAY_APP_ID', 'com.sc.awashpay'),
-    'Amharabank': os.getenv('AMHARABANK_APP_ID', 'com.amharabank.Aba_mobile_banking')
+# Keys: CBE, BOA (Bank of Abyssinia), Dashen
 
+APP_IDS = {
+    'CBE': os.getenv('CBE_APP_ID', 'com.combanketh.mobilebanking'),
+    'BOA': os.getenv('BOA_APP_ID', 'com.boa.boaMobileBanking'),
+    'Dashen': os.getenv('DASHEN_APP_ID', 'com.dashen.dashensuperapp') 
 }
 
-# Bank Names Mapping
+# Bank Names Mapping (consistent keys with APP_IDS)
 BANK_NAMES = {
     'CBE': 'Commercial Bank of Ethiopia',
-    'Awash': 'Awash Bank',
-    'Amharabank': 'Amharabank'
+    'BOA': 'Bank of Abyssinia',
+    'Dashen': 'Dashen Bank'
 }
 
 # Scraping Configuration

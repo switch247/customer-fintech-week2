@@ -1,9 +1,9 @@
 {
-  "total_reviews": 983,
+  "total_reviews": 1200,
   "sentiment_coverage": 1.0,
   "banks": [
-    "Amharabank",
-    "Awash Bank",
-    "Commercial Bank of Ethiopia"
+    "Bank of Abyssinia",
+    "Commercial Bank of Ethiopia",
+    "Dashen Bank"
   ]
 }
