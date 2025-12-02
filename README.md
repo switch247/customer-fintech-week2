@@ -105,6 +105,58 @@ if loader.connect():
     loader.close()
 ```
 
+### Task 3: PostgreSQL Persistent Storage
+
+Use the provided helper and script to store processed reviews into a
+PostgreSQL database named `bank_reviews`.
+
+- **Schema**: see `sql/schema.sql` for `banks` and `reviews` table definitions.
+- **Helper**: `src/customer_analytics/utils/db_helper.py` exposes `PostgresDB`.
+- **Script**: `scripts/store_reviews_to_postgres.py` loads
+    `data/processed/reviews_processed.csv` (path from settings) and inserts
+    rows into Postgres. Database credentials are read from environment
+    variables: `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD`.
+
+Example (PowerShell):
+```powershell
+# set environment vars (temporary for session)
+$env:PGHOST = 'localhost'; $env:PGPORT = '5432'; $env:PGDATABASE = 'bank_reviews';
+$env:PGUSER = 'postgres'; $env:PGPASSWORD = 'password'
+
+python .\scripts\store_reviews_to_postgres.py --min-rows 400
+```
+
+The script will create tables if they do not exist, insert reviews in
+batched transactions, and print counts per bank. See `sql/schema.sql`
+for the schema and `src/customer_analytics/utils/db_helper.py` for the
+implementation details.
+
+Docker (optional, reproducible Postgres)
+--------------------------------------
+
+Start a local Postgres configured for this project (listens on host port 5443):
+
+```powershell
+docker compose up -d
+# wait for healthcheck or check logs:
+docker compose ps
+```
+
+The compose file creates a database `customer_fintec` with user `postgres` and password `root`.
+
+Dumping the database
+--------------------
+
+If you want a SQL dump, use `pg_dump` or the included helper script:
+
+```powershell
+# If pg_dump is available:
+pg_dump --dbname "%DATABASE_URL%" -f customer_fintec_dump.sql
+
+# Or use the project's helper (will prefer pg_dump, fallback to psycopg2 export):
+python .\scripts\dump_db.py
+```
+
 ## Development
 
 ### Code Standards

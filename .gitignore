@@ -20,3 +20,4 @@ htmlcov/
 walkthrough.md*
 /experiments/
 /logs/
+.env*
