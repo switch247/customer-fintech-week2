@@ -12,6 +12,7 @@ from typing import Optional, Dict, Any
 
 from . import sentiment as sent
 from . import text_analysis as ta_module
+from . import preprocessing as pp
 from ..utils import metrics as metrics_lib
 from ..utils.generate_sample import generate_sample_reviews
 from ..config import settings
@@ -61,13 +62,38 @@ class CustomerFeedbackPipeline:
     def compute_sentiment(self, method: Optional[str] = None):
         method = method or self.method
         print(f"Computing sentiment with method={method}...")
-        self.df_processed = sent.batch_sentiment(self.df, text_col='review_text', out_score_col='sentiment_score', out_label_col='sentiment_label', method=method)
+        # Preprocess text into a column used for both sentiment and theme extraction
+        try:
+            self.df = pp.preprocess_dataframe(self.df, text_col='review_text', out_col='review_text_preprocessed')
+        except Exception:
+            # If preprocessing fails, fall back to original text column
+            self.df['review_text_preprocessed'] = self.df.get('review_text', '').fillna('').astype(str)
+
+        self.df_processed = sent.batch_sentiment(
+            self.df,
+            text_col='review_text_preprocessed',
+            out_score_col='sentiment_score',
+            out_label_col='sentiment_label',
+            method=method,
+        )
+
+        # Coverage check: assert at least 90% of reviews got a non-null sentiment score
+        coverage = metrics_lib.evaluate_sentiment_coverage(self.df_processed, 'sentiment_score')
+        print(f"Sentiment coverage: {coverage:.2%}")
+        try:
+            assert coverage >= 0.9, f"Sentiment coverage below required threshold: {coverage:.2%}"
+        except AssertionError:
+            # Provide a clear message and re-raise so pipelines/tests can catch it
+            print(f"WARNING: sentiment coverage {coverage:.2%} < 90%")
+            raise
         return self.df_processed
 
     def extract_themes(self, n_themes: Optional[int] = None):
         n_themes = n_themes or self.n_themes
         print(f"Extracting up to {n_themes} themes per bank...")
-        self.themes = self.analyzer.get_themes_by_bank(self.df_processed, text_col='review_text', bank_col='bank_name', n_themes=n_themes)
+        # Prefer preprocessed text when available
+        text_col = 'review_text_preprocessed' if 'review_text_preprocessed' in self.df_processed.columns else 'review_text'
+        self.themes = self.analyzer.get_themes_by_bank(self.df_processed, text_col=text_col, bank_col='bank_name', n_themes=n_themes)
         return self.themes
 
     def attach_primary_theme(self):
@@ -89,7 +115,9 @@ class CustomerFeedbackPipeline:
         if joblib_dump is None:
             return
         for bank in self.themes.keys():
-            texts = self.df_processed[self.df_processed['bank_name'] == bank]['review_text'].dropna().astype(str).tolist()
+            # Prefer the preprocessed text for fitting models
+            text_col = 'review_text_preprocessed' if 'review_text_preprocessed' in self.df_processed.columns else 'review_text'
+            texts = self.df_processed[self.df_processed['bank_name'] == bank][text_col].dropna().astype(str).tolist()
             if not texts:
                 continue
             try:
